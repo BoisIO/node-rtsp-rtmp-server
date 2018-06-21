@@ -38,8 +38,6 @@
 
   config = require('./config');
 
-  cheesestream = require('./cheesestream');
-
   enabledFeatures = [];
 
   if (config.enableRTSP) {
@@ -94,6 +92,8 @@
   LAST_USED_PORT = 8000;
 
   TIMESTAMP_ROUNDOFF = 4294967296; // 32 bits
+
+  var OPEN_STREAMS = [];
 
   if (DEBUG_OUTGOING_PACKET_DATA) {
     logger.enableTag('rtsp:out');
@@ -532,6 +532,9 @@
           c.on('close', () => {
             var _client, addr, e, ref1;
             logger.info(`[${TAG}:client=${id_str}] disconnected`);
+            if (OPEN_STREAMS[id_str] != undefined) {
+              OPEN_STREAMS[id_str].killServer();
+            }
             logger.debug(`[${TAG}:client=${id_str}] teardown: session=${sessionID}`);
             try {
               c.end();
@@ -2213,7 +2216,11 @@
       streamId = RTSPServer.getStreamIdFromUri(req.uri);
       logger.info(`[${TAG}:client=${client.id}] started uploading stream ${streamId}`);
       LAST_USED_PORT++;
-      cheesestream(LAST_USED_PORT, streamId);
+      
+      var cheesestream = require('./cheesestream');
+      cheesestream.cheesestream(LAST_USED_PORT, streamId);
+      OPEN_STREAMS[client.id] = cheesestream;
+
       stream = avstreams.getOrCreate(streamId);
       if (client.announceSDPInfo.video != null) {
         this.emit('video_start', stream); // has video
