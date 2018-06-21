@@ -1,4 +1,5 @@
-var BufferReader = require('buffer-reader');
+function cheesestream(port, streamId) {
+    var BufferReader = require('buffer-reader');
 var child = require('child_process');
 var io = require('socket.io');
 var events = require('events');
@@ -12,8 +13,6 @@ var fs = require('fs');
 var request = require('request');
 var querystring = require('querystring');
 var crypto = require('crypto');
-
-function cheesestream(port, streamId) {
 
     // posting port number and live status.
     var streamidentifier = streamId.slice(5);
