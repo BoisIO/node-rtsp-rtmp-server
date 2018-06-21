@@ -21,26 +21,29 @@ function cheesestream(port, streamId) {
     request.get('http://back3ndb0is.herokuapp.com/login', function(error, response, next){
         name = "Thijmen Boot";
         responseToken = response.headers.token;
-        signature = signToken({token: responseToken}); 
 
         var form = {
             port: port
         };
     
-        var formData = querystring.stringify(form);
+        // var formData = querystring.stringify(form);
+        var formData = JSON.stringify(form);
+        signature = signToken(form); 
         var contentLength = formData.length;
     
+        console.log(streamidentifier);
         request({
             headers: {
             'name': name,
             'token': responseToken,
-            'signature': signature
+            'signature': signature,
+            'Content-Type': 'application/json',
             },
             uri: 'http://back3ndb0is.herokuapp.com/streams/' + streamidentifier + '/toggle',
             body: formData,
             method: 'POST'
         }, function (err, res, body) {
-            if(!err) { console.log("Opened server on API") }
+            if(!err) { console.log(res) }
         });
     });
 
@@ -178,7 +181,7 @@ function cheesestream(port, streamId) {
                 uri: 'http://back3ndb0is.herokuapp.com/streams/' + streamId + '/toggle',
                 method: 'DELETE'
             }, function (err, res, body) {
-                if(!err){ console.log("API stream closed.") }
+                if(!err){ console.log(body) }
 
             });
         });
