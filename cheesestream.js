@@ -19,7 +19,7 @@ function cheesestream(port, streamId) {
     var streamidentifier = streamId.slice(5);
 
     request.get('http://back3ndb0is.herokuapp.com/login', function(error, response, next){
-        name = "Thijmen Boot";
+        name = "Stream";
         responseToken = response.headers.token;
 
         var form = {
@@ -159,7 +159,7 @@ function cheesestream(port, streamId) {
         console.log('ffmpeg died')
 
         request.get('http://back3ndb0is.herokuapp.com/login', function(error, response, next){
-            name = "Thijmen Boot";
+            name = "Stream";
             responseToken = response.headers.token;
             signature = signToken({token: responseToken}); 
     
