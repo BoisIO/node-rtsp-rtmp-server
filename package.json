@@ -9,11 +9,10 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "coffeescript": "^2.3.1",
-    "ejs": "2.5.x",
-    "sequent": ">= 0.1.2",
     "api-stream": "^1.0.0",
     "buffer-reader": "^0.1.0",
+    "coffeescript": "^2.3.1",
+    "ejs": "2.5.x",
     "express": "^4.16.3",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
@@ -23,9 +22,10 @@
     "node-rtsp-stream": "0.0.3",
     "request": "^2.87.0",
     "rtsp-stream": "^1.0.0",
+    "sequent": ">= 0.1.2",
     "socket.io": "^2.1.1",
     "stream-to-array": "^2.3.0",
-"websocket": "^1.0.26"
+    "websocket": "^1.0.26"
   },
   "engines": {
     "node": ">= 6.0.0"
