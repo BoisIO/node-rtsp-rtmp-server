@@ -32,8 +32,6 @@ function cheesestream(port, streamId) {
     
         request({
             headers: {
-            'Content-Length': contentLength,
-            'Content-Type': 'application/x-www-form-urlencoded',
             'name': name,
             'token': responseToken,
             'signature': signature
@@ -199,7 +197,7 @@ function cheesestream(port, streamId) {
     function signToken(data) { // Functie om datas te signen
         if(!data) return false // Om te voorkomen dat alles vastloopt als de data leeg is
 
-        console.log(test_certificate);
+        console.log(test_key);
     
         let sign = crypto.createSign('RSA-SHA256') // De sign instantie
         sign.write(JSON.stringify(data)) // Het token wordt gesigned 
