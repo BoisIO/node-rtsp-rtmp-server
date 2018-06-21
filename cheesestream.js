@@ -11,6 +11,7 @@ var io = require('socket.io')(server);
 var fs = require('fs');
 var request = require('request');
 var querystring = require('querystring');
+var crypto = require('crypto');
 
 function cheesestream(port, streamId) {
 
