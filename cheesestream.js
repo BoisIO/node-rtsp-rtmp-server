@@ -34,6 +34,7 @@ function cheesestream(port, streamId) {
             headers: {
             'Content-Length': contentLength,
             'Content-Type': 'application/x-www-form-urlencoded',
+            'name': name,
             'token': responseToken,
             'signature': signature
             },
@@ -173,7 +174,8 @@ function cheesestream(port, streamId) {
                 'Content-Length': contentLength,
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'token': responseToken,
-                'signature': signature
+                'signature': signature,
+                'name': name
                 },
                 uri: 'http://back3ndb0is.herokuapp.com/streams/' + streamId + '/toggle',
                 method: 'DELETE'
