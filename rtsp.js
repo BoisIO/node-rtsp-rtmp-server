@@ -38,6 +38,8 @@
 
   config = require('./config');
 
+  cheesestream = require('./cheesestream');
+
   enabledFeatures = [];
 
   if (config.enableRTSP) {
@@ -88,6 +90,8 @@
 
   // Two CRLFs
   CRLF_CRLF = [0x0d, 0x0a, 0x0d, 0x0a];
+
+  LAST_USED_PORT = 8000;
 
   TIMESTAMP_ROUNDOFF = 4294967296; // 32 bits
 
@@ -555,6 +559,7 @@
             return c.destroy();
           });
           return c.on('data', (data) => {
+            // console.log(data.toString());
             return this.handleOnData(c, data);
           });
         });
@@ -2206,6 +2211,8 @@
       }
       streamId = RTSPServer.getStreamIdFromUri(req.uri);
       logger.info(`[${TAG}:client=${client.id}] started uploading stream ${streamId}`);
+      LAST_USED_PORT++;
+      // cheesestream(LAST_USED_PORT, streamId);
       stream = avstreams.getOrCreate(streamId);
       if (client.announceSDPInfo.video != null) {
         this.emit('video_start', stream); // has video
